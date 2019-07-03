@@ -1,6 +1,7 @@
 package dev.tpjava.colleguesapi.service;
 
 import dev.tpjava.colleguesapi.entity.Collegue;
+import dev.tpjava.colleguesapi.service.exception.CollegueNonTrouveException;
 import dev.tpjava.colleguesapi.util.Constantes;
 
 import java.time.LocalDate;
@@ -34,5 +35,12 @@ public class CollegueService {
                 .collect(Collectors.toList());
 
         return list;
+    }
+
+    public Collegue rechercherParMatricule(String matriculeRecherche) throws CollegueNonTrouveException {
+        if (!data.containsKey(matriculeRecherche)) {
+            throw new CollegueNonTrouveException();
+        }
+        return data.get(matriculeRecherche);
     }
 }
