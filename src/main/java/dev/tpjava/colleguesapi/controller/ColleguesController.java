@@ -43,11 +43,11 @@ public class ColleguesController {
             method = RequestMethod.POST
     )
     public String ajouterCollegue(
-            @RequestParam String nom,
-            @RequestParam String prenom,
-            @RequestParam String email,
-            @RequestParam String dateDeNaissance,
-            @RequestParam String photoUrl) {
+            @RequestBody String nom,
+            @RequestBody String prenom,
+            @RequestBody String email,
+            @RequestBody String dateDeNaissance,
+            @RequestBody String photoUrl) {
         Collegue c = new Collegue(null, nom, prenom, email, photoUrl, null);
         try {
             LocalDate ld = LocalDate.parse(dateDeNaissance);
