@@ -1,6 +1,7 @@
-package dev.tpjava.colleguesapi.service.exception;
+package dev.tpjava.colleguesapi.controller.handler;
 
 
+import dev.tpjava.colleguesapi.controller.exception.CollegueNonTrouveException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
