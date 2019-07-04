@@ -12,6 +12,10 @@ import java.util.stream.Collectors;
 
 public class CollegueService {
 
+    public static final int LAST_NAME_MIN_SIZE = 2;
+    public static final int FIRST_NAME_MIN_SIZE = 2;
+    public static final int EMAIL_MIN_SIZE = 3;
+    public static final int MIN_AGE = 18;
     private Map<String, Collegue> data = new HashMap<>();
 
     public CollegueService() {
@@ -48,12 +52,12 @@ public class CollegueService {
 
     public Collegue ajouterCollegue(Collegue collegueAAjouter) {
 
-        if (collegueAAjouter.getFirstName() == null || collegueAAjouter.getFirstName().length() < 2
-                || collegueAAjouter.getLastName() == null || collegueAAjouter.getLastName().length() < 2
-                || collegueAAjouter.getEmail() == null || collegueAAjouter.getEmail().length() < 3
+        if (collegueAAjouter.getFirstName() == null || collegueAAjouter.getFirstName().length() < LAST_NAME_MIN_SIZE
+                || collegueAAjouter.getLastName() == null || collegueAAjouter.getLastName().length() < FIRST_NAME_MIN_SIZE
+                || collegueAAjouter.getEmail() == null || collegueAAjouter.getEmail().length() < EMAIL_MIN_SIZE
                 || !collegueAAjouter.getEmail().contains("@") || collegueAAjouter.getPictureUrl() == null
                 || collegueAAjouter.getPictureUrl().length() < 4 || !"http".equals(collegueAAjouter.getPictureUrl().substring(0, 4))
-                || collegueAAjouter.getBirthDate() == null || Period.between(collegueAAjouter.getBirthDate(), LocalDate.now()).getYears() < 18
+                || collegueAAjouter.getBirthDate() == null || Period.between(collegueAAjouter.getBirthDate(), LocalDate.now()).getYears() < MIN_AGE
         ) {
             throw new CollegueInvalideException();
         }

@@ -40,6 +40,7 @@ class CollegueServiceTest {
         }catch (CollegueInvalideException e) {
             fail();
         }
+
         try {
             c = new Collegue(null, goodName, goodName, goodEmail2, goodPicture, goodDate);
             collegueService.ajouterCollegue(c);
@@ -137,6 +138,7 @@ class CollegueServiceTest {
         } catch (CollegueInvalideException | CollegueNonTrouveException e) {
             fail();
         }
+
         try {
             collegueService.updateEmail("M1", goodEmail2);
             fail();
@@ -144,6 +146,7 @@ class CollegueServiceTest {
             fail();
         } catch ( CollegueNonTrouveException e) {
         }
+
         try {
             collegueService.updateEmail(matricule, badEmail1);
             fail();
@@ -151,6 +154,7 @@ class CollegueServiceTest {
             fail();
         } catch (CollegueInvalideException e) {
         }
+
         try {
             collegueService.updateEmail(matricule, badEmail2);
             fail();
