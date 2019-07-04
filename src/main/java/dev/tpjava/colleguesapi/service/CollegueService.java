@@ -61,4 +61,27 @@ public class CollegueService {
         data.put(collegueAAjouter.getMatricule(), collegueAAjouter);
         return collegueAAjouter;
     }
+
+    public Collegue updateEmail(String matricule, String email) {
+        if (!data.containsKey(matricule)) {
+            throw new CollegueNonTrouveException();
+        }
+        if (email == null || email.length() < 3 || !email.contains("@")) {
+            throw new CollegueInvalideException();
+        }
+        data.get(matricule).setEmail(email);
+        return data.get(matricule);
+    }
+
+    public Collegue updatePictureUrl(String matricule, String pictureUrl) {
+        if (!data.containsKey(matricule)) {
+            throw new CollegueNonTrouveException();
+        }
+        if (pictureUrl == null || pictureUrl.length() < 4 || !"http".equals(pictureUrl.substring(0, 4))) {
+            throw new CollegueInvalideException();
+        }
+        data.get(matricule).setPictureUrl(pictureUrl);
+        return data.get(matricule);
+
+    }
 }

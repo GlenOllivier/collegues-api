@@ -42,10 +42,26 @@ public class ColleguesController {
     @RequestMapping(
             method = RequestMethod.POST
     )
-    public String ajouterCollegue(
+    public Collegue ajouterCollegue(
             @RequestBody Collegue c
     ){
-        Constantes.COLLEGUE_SERVICE.ajouterCollegue(c);
-        return "Collegue ajouté";
+        return Constantes.COLLEGUE_SERVICE.ajouterCollegue(c);
+    }
+
+    @RequestMapping(
+            method = RequestMethod.PATCH,
+            path = "/{matricule}"
+    )
+    public Collegue updateCollegue(
+            @PathVariable String matricule,
+            @RequestBody Collegue c
+    ) {
+        if (c.getPictureUrl() != null ) {
+            Constantes.COLLEGUE_SERVICE.updatePictureUrl(matricule, c.getPictureUrl());
+        }
+        if (c.getEmail() != null) {
+            Constantes.COLLEGUE_SERVICE.updateEmail(matricule, c.getEmail());
+        }
+        return Constantes.COLLEGUE_SERVICE.rechercherParMatricule(matricule);
     }
 }
