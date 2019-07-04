@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 
+import java.time.format.DateTimeParseException;
+
 @ControllerAdvice
 public class CollegueInvalideExceptionHandler {
     @ExceptionHandler(value = {CollegueInvalideException.class})

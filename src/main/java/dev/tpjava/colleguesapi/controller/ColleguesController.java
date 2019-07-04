@@ -43,18 +43,8 @@ public class ColleguesController {
             method = RequestMethod.POST
     )
     public String ajouterCollegue(
-            @RequestBody String nom,
-            @RequestBody String prenom,
-            @RequestBody String email,
-            @RequestBody String dateDeNaissance,
-            @RequestBody String photoUrl) {
-        Collegue c = new Collegue(null, nom, prenom, email, photoUrl, null);
-        try {
-            LocalDate ld = LocalDate.parse(dateDeNaissance);
-            c.setBirthDate(ld);
-        } catch (DateTimeParseException e) {
-            throw new CollegueInvalideException();
-        }
+            @RequestBody Collegue c
+    ){
         Constantes.COLLEGUE_SERVICE.ajouterCollegue(c);
         return "Collegue ajouté";
     }
