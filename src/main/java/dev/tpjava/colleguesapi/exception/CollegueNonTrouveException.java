@@ -1,4 +1,4 @@
-package dev.tpjava.colleguesapi.controller.exception;
+package dev.tpjava.colleguesapi.exception;
 
 public class CollegueNonTrouveException extends RuntimeException {
 }

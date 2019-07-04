@@ -1,12 +1,11 @@
 package dev.tpjava.colleguesapi.controller;
 
-import dev.tpjava.colleguesapi.controller.exception.CollegueInvalideException;
+import dev.tpjava.colleguesapi.controller.dto.CreerCollegueDTO;
+import dev.tpjava.colleguesapi.controller.dto.UpdateCollegueDTO;
 import dev.tpjava.colleguesapi.entity.Collegue;
 import dev.tpjava.colleguesapi.util.Constantes;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -43,7 +42,7 @@ public class ColleguesController {
             method = RequestMethod.POST
     )
     public Collegue ajouterCollegue(
-            @RequestBody Collegue c
+            @RequestBody CreerCollegueDTO c
     ){
         return Constantes.COLLEGUE_SERVICE.ajouterCollegue(c);
     }
@@ -54,7 +53,7 @@ public class ColleguesController {
     )
     public Collegue updateCollegue(
             @PathVariable String matricule,
-            @RequestBody Collegue c
+            @RequestBody UpdateCollegueDTO c
     ) {
         if (c.getPictureUrl() != null ) {
             Constantes.COLLEGUE_SERVICE.updatePictureUrl(matricule, c.getPictureUrl());

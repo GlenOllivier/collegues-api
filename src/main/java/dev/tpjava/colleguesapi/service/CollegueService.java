@@ -1,8 +1,9 @@
 package dev.tpjava.colleguesapi.service;
 
-import dev.tpjava.colleguesapi.controller.exception.CollegueInvalideException;
+import dev.tpjava.colleguesapi.controller.dto.CreerCollegueDTO;
+import dev.tpjava.colleguesapi.exception.CollegueInvalideException;
 import dev.tpjava.colleguesapi.entity.Collegue;
-import dev.tpjava.colleguesapi.controller.exception.CollegueNonTrouveException;
+import dev.tpjava.colleguesapi.exception.CollegueNonTrouveException;
 import dev.tpjava.colleguesapi.util.Constantes;
 
 import java.time.LocalDate;
@@ -50,20 +51,21 @@ public class CollegueService {
         return data.get(matriculeRecherche);
     }
 
-    public Collegue ajouterCollegue(Collegue collegueAAjouter) {
+    public Collegue ajouterCollegue(CreerCollegueDTO collegueAAjouter) {
 
         if (collegueAAjouter.getFirstName() == null || collegueAAjouter.getFirstName().length() < LAST_NAME_MIN_SIZE
                 || collegueAAjouter.getLastName() == null || collegueAAjouter.getLastName().length() < FIRST_NAME_MIN_SIZE
                 || collegueAAjouter.getEmail() == null || collegueAAjouter.getEmail().length() < EMAIL_MIN_SIZE
                 || !collegueAAjouter.getEmail().contains("@") || collegueAAjouter.getPictureUrl() == null
-                || collegueAAjouter.getPictureUrl().length() < 4 || !"http".equals(collegueAAjouter.getPictureUrl().substring(0, 4))
+                || collegueAAjouter.getPictureUrl().length() < "http".length() || !"http".equals(collegueAAjouter.getPictureUrl().substring(0, 4))
                 || collegueAAjouter.getBirthDate() == null || Period.between(collegueAAjouter.getBirthDate(), LocalDate.now()).getYears() < MIN_AGE
         ) {
             throw new CollegueInvalideException();
         }
-        collegueAAjouter.setMatricule(UUID.randomUUID().toString());
-        data.put(collegueAAjouter.getMatricule(), collegueAAjouter);
-        return collegueAAjouter;
+        Collegue c = collegueAAjouter.toCollegue();
+        c.setMatricule(UUID.randomUUID().toString());
+        data.put(c.getMatricule(), c);
+        return c;
     }
 
     public Collegue updateEmail(String matricule, String email) {
