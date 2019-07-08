@@ -28,7 +28,7 @@ public class StartupDataInit {
             c.setLastName(Constantes.NOMS.get(r.nextInt(Constantes.NOMS.size())));
             c.setFirstName(Constantes.PRENOMS.get(r.nextInt(Constantes.PRENOMS.size())));
             c.setEmail(c.getLastName()+ '.' + c.getFirstName() + "@gmail.com");
-            c.setBirthDate(LocalDate.of(r.nextInt(50) + 1970,
+            c.setBirthDate(LocalDate.of(r.nextInt(50) + 1950,
                     r.nextInt(12) + 1,
                     r.nextInt(28) + 1));
 

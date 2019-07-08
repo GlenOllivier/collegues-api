@@ -8,5 +8,4 @@ import java.util.Optional;
 
 public interface CollegueRepository extends JpaRepository<Collegue, String> {
     public List<Collegue> findAllByLastName(String lastName);
-    public Optional<Collegue> findByMatricule(String matricule);
 }

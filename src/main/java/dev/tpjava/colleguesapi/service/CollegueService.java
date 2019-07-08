@@ -32,7 +32,7 @@ public class CollegueService {
     }
 
     public Collegue rechercherParMatricule(String matriculeRecherche) throws CollegueNonTrouveException {
-        return collegueRepository.findByMatricule(matriculeRecherche).orElseThrow(CollegueNonTrouveException::new);
+        return collegueRepository.findById(matriculeRecherche).orElseThrow(CollegueNonTrouveException::new);
 
     }
 
@@ -54,7 +54,7 @@ public class CollegueService {
     }
 
     public Collegue updateEmail(String matricule, String email) {
-        Collegue c = collegueRepository.findByMatricule(matricule).orElseThrow(CollegueNonTrouveException::new);
+        Collegue c = collegueRepository.findById(matricule).orElseThrow(CollegueNonTrouveException::new);
         if (email == null || email.length() < EMAIL_MIN_SIZE || !email.contains("@")) {
             throw new CollegueInvalideException();
         }
@@ -63,7 +63,7 @@ public class CollegueService {
     }
 
     public Collegue updatePictureUrl(String matricule, String pictureUrl) {
-        Collegue c = collegueRepository.findByMatricule(matricule).orElseThrow(CollegueNonTrouveException::new);
+        Collegue c = collegueRepository.findById(matricule).orElseThrow(CollegueNonTrouveException::new);
         if (pictureUrl == null || pictureUrl.length() < 4 || !"http".equals(pictureUrl.substring(0, 4))) {
             throw new CollegueInvalideException();
         }
