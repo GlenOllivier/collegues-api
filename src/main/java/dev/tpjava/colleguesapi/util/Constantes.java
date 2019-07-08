@@ -71,6 +71,4 @@ public abstract class Constantes {
             "Nicolas",
             "Christiane"
     );
-
-    public static final CollegueService COLLEGUE_SERVICE = new CollegueService(100);
 }

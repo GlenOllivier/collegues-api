@@ -3,7 +3,9 @@ package dev.tpjava.colleguesapi.controller;
 import dev.tpjava.colleguesapi.controller.dto.CreerCollegueDTO;
 import dev.tpjava.colleguesapi.controller.dto.UpdateCollegueDTO;
 import dev.tpjava.colleguesapi.entity.Collegue;
+import dev.tpjava.colleguesapi.service.CollegueService;
 import dev.tpjava.colleguesapi.util.Constantes;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,13 +17,17 @@ import java.util.stream.Collectors;
 )
 public class ColleguesController {
 
+    @Autowired
+    private CollegueService collegueService;
+
+
     @RequestMapping(
             method = RequestMethod.GET
     )
     public List<String> getCollegues(
             @RequestParam String nom
     ) {
-        return Constantes.COLLEGUE_SERVICE.rechercheParNom(nom)
+        return collegueService.rechercheParNom(nom)
                 .stream()
                 .map(c -> c.getMatricule())
                 .collect(Collectors.toList());
@@ -34,7 +40,7 @@ public class ColleguesController {
     public Collegue getCollegue(
             @PathVariable String matricule
     ) {
-        Collegue c = Constantes.COLLEGUE_SERVICE.rechercherParMatricule(matricule);
+        Collegue c = collegueService.rechercherParMatricule(matricule);
         return c;
     }
 
@@ -44,7 +50,7 @@ public class ColleguesController {
     public Collegue ajouterCollegue(
             @RequestBody CreerCollegueDTO c
     ){
-        return Constantes.COLLEGUE_SERVICE.ajouterCollegue(c);
+        return collegueService.ajouterCollegue(c);
     }
 
     @RequestMapping(
@@ -56,11 +62,11 @@ public class ColleguesController {
             @RequestBody UpdateCollegueDTO c
     ) {
         if (c.getPictureUrl() != null ) {
-            Constantes.COLLEGUE_SERVICE.updatePictureUrl(matricule, c.getPictureUrl());
+            collegueService.updatePictureUrl(matricule, c.getPictureUrl());
         }
         if (c.getEmail() != null) {
-            Constantes.COLLEGUE_SERVICE.updateEmail(matricule, c.getEmail());
+            collegueService.updateEmail(matricule, c.getEmail());
         }
-        return Constantes.COLLEGUE_SERVICE.rechercherParMatricule(matricule);
+        return collegueService.rechercherParMatricule(matricule);
     }
 }

@@ -5,38 +5,47 @@ import dev.tpjava.colleguesapi.exception.CollegueInvalideException;
 import dev.tpjava.colleguesapi.exception.CollegueNonTrouveException;
 import dev.tpjava.colleguesapi.entity.Collegue;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
 
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
+@RunWith(SpringRunner.class)
+@SpringBootTest()
+
+//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
 
 class CollegueServiceTest {
 
-    String goodName = "Bob";
-    String badName = "M";
+    private final String goodName = "Bob";
+    private final String badName = "M";
 
-    String goodEmail = "bob@yahoo.fr";
-    String goodEmail2 = "fred@gmail.com";
-    String badEmail1 = "e@";
-    String badEmail2 = "bop.vagmail.com";
+    private final String goodEmail = "bob@yahoo.fr";
+    private final String goodEmail2 = "fred@gmail.com";
+    private final String badEmail1 = "e@";
+    private final String badEmail2 = "bop.vagmail.com";
 
-    String goodPicture = "httptruc";
-    String goodPicture2 = "httpmachin";
-    String badPicture1 = "htt";
-    String badPicture2 = "ahttp://www.truc.fr";
+    private final String goodPicture = "httptruc";
+    private final String goodPicture2 = "httpmachin";
+    private final String badPicture1 = "htt";
+    private final String badPicture2 = "ahttp://www.truc.fr";
 
-    LocalDate goodDate = LocalDate.of(LocalDate.now().getYear() - 19, 7, 2);
-    LocalDate badDate1 = LocalDate.of(LocalDate.now().getYear() - 17, 7, 2);
-    LocalDate badDate2 = LocalDate.of(LocalDate.now().getYear() + 21, 7, 2);
+    private final LocalDate goodDate = LocalDate.of(LocalDate.now().getYear() - 19, 7, 2);
+    private final LocalDate badDate1 = LocalDate.of(LocalDate.now().getYear() - 17, 7, 2);
+    private final LocalDate badDate2 = LocalDate.of(LocalDate.now().getYear() + 21, 7, 2);
 
-    CollegueService collegueService = new CollegueService();
+    @Autowired
+    private CollegueService collegueService;
 
     /*
      * Tests Create
      */
 
     @Test
-    public void test_ajouter_collegue_valide() {
+    void test_ajouter_collegue_valide() {
 
         CreerCollegueDTO collegueDTO = new CreerCollegueDTO(goodName, goodName, goodEmail, goodPicture, goodDate);
         Collegue collegue = collegueService.ajouterCollegue(collegueDTO);
@@ -51,98 +60,91 @@ class CollegueServiceTest {
     }
 
     @Test
-    public void test_ajouter_collegue() {
-
-        CreerCollegueDTO collegueDTO = new CreerCollegueDTO(goodName, goodName, goodEmail, goodPicture, goodDate);
-        Collegue collegue = collegueService.ajouterCollegue(collegueDTO);
-    }
-
-    @Test
-    public void test_ajouter_collegue_nom_null() {
+    void test_ajouter_collegue_nom_null() {
 
         CreerCollegueDTO collegueDTO = new CreerCollegueDTO(null, goodName, goodEmail, goodPicture, goodDate);
         assertThrows(CollegueInvalideException.class, () ->collegueService.ajouterCollegue(collegueDTO));
     }
 
     @Test
-    public void test_ajouter_collegue_nom_court() {
+    void test_ajouter_collegue_nom_court() {
 
         CreerCollegueDTO collegueDTO = new CreerCollegueDTO(badName, goodName, goodEmail, goodPicture, goodDate);
         assertThrows(CollegueInvalideException.class, () ->collegueService.ajouterCollegue(collegueDTO));
     }
 
     @Test
-    public void test_ajouter_collegue_prenom_null() {
+    void test_ajouter_collegue_prenom_null() {
 
         CreerCollegueDTO collegueDTO = new CreerCollegueDTO(goodName, null, goodEmail, goodPicture, goodDate);
         assertThrows(CollegueInvalideException.class, () ->collegueService.ajouterCollegue(collegueDTO));
     }
 
     @Test
-    public void test_ajouter_collegue_prenom_court() {
+    void test_ajouter_collegue_prenom_court() {
 
         CreerCollegueDTO collegueDTO = new CreerCollegueDTO(goodName, badName, goodEmail, goodPicture, goodDate);
         assertThrows(CollegueInvalideException.class, () ->collegueService.ajouterCollegue(collegueDTO));
     }
 
     @Test
-    public void test_ajouter_collegue_email_null() {
+    void test_ajouter_collegue_email_null() {
 
         CreerCollegueDTO collegueDTO = new CreerCollegueDTO(goodName, goodName, null, goodPicture, goodDate);
         assertThrows(CollegueInvalideException.class, () ->collegueService.ajouterCollegue(collegueDTO));
     }
 
     @Test
-    public void test_ajouter_collegue_email_court() {
+    void test_ajouter_collegue_email_court() {
 
         CreerCollegueDTO collegueDTO = new CreerCollegueDTO(goodName, goodName, badEmail1, goodPicture, goodDate);
         assertThrows(CollegueInvalideException.class, () ->collegueService.ajouterCollegue(collegueDTO));
     }
 
     @Test
-    public void test_ajouter_collegue_email_invalide() {
+    void test_ajouter_collegue_email_invalide() {
 
         CreerCollegueDTO collegueDTO = new CreerCollegueDTO(goodName, goodName, badEmail2, goodPicture, goodDate);
         assertThrows(CollegueInvalideException.class, () ->collegueService.ajouterCollegue(collegueDTO));
     }
 
     @Test
-    public void test_ajouter_collegue_photo_null() {
+    void test_ajouter_collegue_photo_null() {
 
         CreerCollegueDTO collegueDTO = new CreerCollegueDTO(goodName, goodName, goodEmail, null, goodDate);
         assertThrows(CollegueInvalideException.class, () ->collegueService.ajouterCollegue(collegueDTO));
     }
 
     @Test
-    public void test_ajouter_collegue_photo_court() {
+    void test_ajouter_collegue_photo_court() {
 
         CreerCollegueDTO collegueDTO = new CreerCollegueDTO(goodName, goodName, goodEmail, badPicture1, goodDate);
         assertThrows(CollegueInvalideException.class, () ->collegueService.ajouterCollegue(collegueDTO));
     }
 
     @Test
-    public void test_ajouter_collegue_photo_invalide() {
+    void test_ajouter_collegue_photo_invalide() {
 
         CreerCollegueDTO collegueDTO = new CreerCollegueDTO(goodName, goodName, goodEmail, badPicture2, goodDate);
         assertThrows(CollegueInvalideException.class, () ->collegueService.ajouterCollegue(collegueDTO));
     }
 
     @Test
-    public void test_ajouter_collegue_date_null() {
+    void test_ajouter_collegue_date_null() {
 
         CreerCollegueDTO collegueDTO = new CreerCollegueDTO(goodName, goodName, goodEmail, goodPicture, null);
         assertThrows(CollegueInvalideException.class, () ->collegueService.ajouterCollegue(collegueDTO));
     }
 
     @Test
-    public void test_ajouter_collegue_date_mineur_avant() {
+    void test_ajouter_collegue_date_mineur_avant() {
 
         CreerCollegueDTO collegueDTO = new CreerCollegueDTO(goodName, goodName, goodEmail, goodPicture, badDate1);
         assertThrows(CollegueInvalideException.class, () ->collegueService.ajouterCollegue(collegueDTO));
     }
 
     @Test
-    public void test_ajouter_collegue_date_mineur_apres() {
+    void test_ajouter_collegue_date_mineur_apres() {
 
         CreerCollegueDTO collegueDTO = new CreerCollegueDTO(goodName, goodName, goodEmail, goodPicture, badDate2);
         assertThrows(CollegueInvalideException.class, () ->collegueService.ajouterCollegue(collegueDTO));
@@ -153,25 +155,25 @@ class CollegueServiceTest {
      */
 
     @Test
-    public void test_update_collegue_email_valide() {
+    void test_update_collegue_email_valide() {
 
         CreerCollegueDTO collegueDTO = new CreerCollegueDTO(goodName, goodName, goodEmail, goodPicture, goodDate);
         Collegue collegue = collegueService.ajouterCollegue(collegueDTO);
 
-        collegueService.updateEmail(collegue.getMatricule(), goodEmail2);
-        assertEquals(goodEmail2, collegue.getEmail());
+        Collegue collegueModifie = collegueService.updateEmail(collegue.getMatricule(), goodEmail2);
+        assertEquals(goodEmail2, collegueModifie.getEmail());
     }
 
 
     @Test
-    public void test_update_collegue_email_matricule_inconnu() {
+    void test_update_collegue_email_matricule_inconnu() {
 
         assertThrows(CollegueNonTrouveException.class, () -> collegueService.updateEmail("M012", goodEmail));
     }
 
 
     @Test
-    public void test_update_collegue_email_null() {
+    void test_update_collegue_email_null() {
 
         CreerCollegueDTO collegueDTO = new CreerCollegueDTO(goodName, goodName, goodEmail, goodPicture, goodDate);
         Collegue collegue = collegueService.ajouterCollegue(collegueDTO);
@@ -180,7 +182,7 @@ class CollegueServiceTest {
     }
 
     @Test
-    public void test_update_collegue_email_court() {
+    void test_update_collegue_email_court() {
 
         CreerCollegueDTO collegueDTO = new CreerCollegueDTO(goodName, goodName, goodEmail, goodPicture, goodDate);
         Collegue collegue = collegueService.ajouterCollegue(collegueDTO);
@@ -189,7 +191,7 @@ class CollegueServiceTest {
     }
 
     @Test
-    public void test_update_collegue_email_invalide() {
+    void test_update_collegue_email_invalide() {
 
         CreerCollegueDTO collegueDTO = new CreerCollegueDTO(goodName, goodName, goodEmail, goodPicture, goodDate);
         Collegue collegue = collegueService.ajouterCollegue(collegueDTO);
@@ -198,25 +200,25 @@ class CollegueServiceTest {
     }
 
     @Test
-    public void test_update_collegue_photo_valide() {
+    void test_update_collegue_photo_valide() {
 
         CreerCollegueDTO collegueDTO = new CreerCollegueDTO(goodName, goodName, goodEmail, goodPicture, goodDate);
         Collegue collegue = collegueService.ajouterCollegue(collegueDTO);
 
-        collegueService.updatePictureUrl(collegue.getMatricule(), goodPicture2);
-        assertEquals(goodPicture2, collegue.getPictureUrl());
+        Collegue collegueModifie = collegueService.updatePictureUrl(collegue.getMatricule(), goodPicture2);
+        assertEquals(goodPicture2, collegueModifie.getPictureUrl());
     }
 
 
     @Test
-    public void test_update_collegue_photo_matricule_inconnu() {
+    void test_update_collegue_photo_matricule_inconnu() {
 
         assertThrows(CollegueNonTrouveException.class, () -> collegueService.updatePictureUrl("M012", goodPicture));
     }
 
 
     @Test
-    public void test_update_collegue_photo_null() {
+    void test_update_collegue_photo_null() {
 
         CreerCollegueDTO collegueDTO = new CreerCollegueDTO(goodName, goodName, goodEmail, goodPicture, goodDate);
         Collegue collegue = collegueService.ajouterCollegue(collegueDTO);
@@ -225,7 +227,7 @@ class CollegueServiceTest {
     }
 
     @Test
-    public void test_update_collegue_photo_court() {
+    void test_update_collegue_photo_court() {
 
         CreerCollegueDTO collegueDTO = new CreerCollegueDTO(goodName, goodName, goodEmail, goodPicture, goodDate);
         Collegue collegue = collegueService.ajouterCollegue(collegueDTO);
@@ -234,7 +236,7 @@ class CollegueServiceTest {
     }
 
     @Test
-    public void test_update_collegue_photo_invalide() {
+    void test_update_collegue_photo_invalide() {
 
         CreerCollegueDTO collegueDTO = new CreerCollegueDTO(goodName, goodName, goodEmail, goodPicture, goodDate);
         Collegue collegue = collegueService.ajouterCollegue(collegueDTO);

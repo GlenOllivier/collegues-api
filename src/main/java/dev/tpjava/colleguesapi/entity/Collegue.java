@@ -1,9 +1,14 @@
 package dev.tpjava.colleguesapi.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@Entity
 public class Collegue {
+    @Id
     private String matricule;
     private String lastName;
     private String firstName;

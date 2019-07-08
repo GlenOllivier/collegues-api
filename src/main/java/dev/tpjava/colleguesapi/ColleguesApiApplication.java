@@ -10,4 +10,6 @@ public class ColleguesApiApplication {
 		SpringApplication.run(ColleguesApiApplication.class, args);
 	}
 
+
+
 }
