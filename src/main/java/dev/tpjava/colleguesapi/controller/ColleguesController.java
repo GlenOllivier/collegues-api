@@ -4,13 +4,13 @@ import dev.tpjava.colleguesapi.controller.dto.CreerCollegueDTO;
 import dev.tpjava.colleguesapi.controller.dto.UpdateCollegueDTO;
 import dev.tpjava.colleguesapi.entity.Collegue;
 import dev.tpjava.colleguesapi.service.CollegueService;
-import dev.tpjava.colleguesapi.util.Constantes;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@CrossOrigin
 @RestController
 @RequestMapping(
         path = "/collegues"

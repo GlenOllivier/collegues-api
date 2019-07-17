@@ -31,6 +31,7 @@ public class StartupDataInit {
             c.setBirthDate(LocalDate.of(r.nextInt(50) + 1950,
                     r.nextInt(12) + 1,
                     r.nextInt(28) + 1));
+            c.setPictureUrl("assets/images/keanu.png");
 
             collegueRepo.save(c);
         }
