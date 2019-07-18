@@ -61,7 +61,6 @@ public class ColleguesController {
             @PathVariable String matricule,
             @RequestBody UpdateCollegueDTO c
     ) {
-
         if (c.getPictureUrl() != null ) {
             collegueService.updatePictureUrl(matricule, c.getPictureUrl());
         }

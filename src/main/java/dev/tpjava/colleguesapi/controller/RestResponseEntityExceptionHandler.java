@@ -11,7 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 public class RestResponseEntityExceptionHandler {
     @ExceptionHandler(value = {CollegueInvalideException.class})
     protected ResponseEntity<Object> handleConflict(CollegueInvalideException e, WebRequest req) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Collegue invalide");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getCauses());
     }
 
     @ExceptionHandler(value = {CollegueNonTrouveException.class})
