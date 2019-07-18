@@ -21,9 +21,9 @@ public class Collegue {
 
     public Collegue(String matricule, String lastName, String firstName, String email, String pictureUrl, LocalDate birthDate) {
         this.matricule = matricule;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.email = email;
+        this.lastName = lastName.toUpperCase();
+        this.firstName = firstName.substring(0,1).toUpperCase() + firstName.substring(1).toLowerCase();
+        this.email = email.toLowerCase();
         this.pictureUrl = pictureUrl;
         this.birthDate = birthDate;
     }
@@ -41,7 +41,7 @@ public class Collegue {
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName = lastName.toUpperCase();
     }
 
     public String getFirstName() {
@@ -49,7 +49,7 @@ public class Collegue {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName = firstName.substring(0,1).toUpperCase() + firstName.substring(1).toLowerCase();
     }
 
     public String getEmail() {
@@ -57,7 +57,7 @@ public class Collegue {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.toLowerCase();
     }
 
     public String getPictureUrl() {

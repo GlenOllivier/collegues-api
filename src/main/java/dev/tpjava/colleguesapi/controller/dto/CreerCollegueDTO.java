@@ -15,9 +15,9 @@ public class CreerCollegueDTO {
     }
 
     public CreerCollegueDTO( String lastName, String firstName, String email, String pictureUrl, LocalDate birthDate) {
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.email = email;
+        this.lastName = lastName.toUpperCase();
+        this.firstName = firstName.substring(0,1).toUpperCase() + firstName.substring(1).toLowerCase();
+        this.email = email.toLowerCase();
         this.pictureUrl = pictureUrl;
         this.birthDate = birthDate;
     }
@@ -31,7 +31,7 @@ public class CreerCollegueDTO {
     }
 
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        this.lastName = lastName.toUpperCase();
     }
 
     public String getFirstName() {
@@ -39,7 +39,7 @@ public class CreerCollegueDTO {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
+        this.firstName = firstName.substring(0,1).toUpperCase() + firstName.substring(1).toLowerCase();
     }
 
     public String getEmail() {
@@ -47,7 +47,7 @@ public class CreerCollegueDTO {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.toLowerCase();
     }
 
     public String getPictureUrl() {

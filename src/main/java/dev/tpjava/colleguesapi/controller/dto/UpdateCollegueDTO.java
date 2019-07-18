@@ -12,7 +12,7 @@ public class UpdateCollegueDTO {
     }
 
     public UpdateCollegueDTO(  String email, String pictureUrl) {
-        this.email = email;
+        this.email = email.toLowerCase();
         this.pictureUrl = pictureUrl;
     }
 
@@ -22,7 +22,7 @@ public class UpdateCollegueDTO {
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.email = email.toLowerCase();
     }
 
     public String getPictureUrl() {

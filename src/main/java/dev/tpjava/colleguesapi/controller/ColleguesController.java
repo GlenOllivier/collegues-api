@@ -27,7 +27,7 @@ public class ColleguesController {
     public List<String> getCollegues(
             @RequestParam String nom
     ) {
-        return collegueService.rechercheParNom(nom)
+        return collegueService.rechercheParNom(nom.toUpperCase())
                 .stream()
                 .map(c -> c.getMatricule())
                 .collect(Collectors.toList());
@@ -61,6 +61,7 @@ public class ColleguesController {
             @PathVariable String matricule,
             @RequestBody UpdateCollegueDTO c
     ) {
+
         if (c.getPictureUrl() != null ) {
             collegueService.updatePictureUrl(matricule, c.getPictureUrl());
         }
