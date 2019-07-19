@@ -1,8 +1,8 @@
 package dev.tpjava.colleguesapi.controller.dto;
 
 public class PhotoDTO {
-    String matricule;
-    String pictureUrl;
+    private String matricule;
+    private String pictureUrl;
 
     public PhotoDTO() {
     }
