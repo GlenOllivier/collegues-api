@@ -104,4 +104,10 @@ public class CollegueService {
                 .map(collegue -> new PhotoDTO(collegue.getMatricule(), collegue.getPictureUrl()))
                 .collect(Collectors.toList());
     }
+
+    public boolean verifEmail(String email) {
+        List<Collegue> collegues = collegueRepository.findAll();
+        return collegues.stream()
+                .anyMatch(c -> email.equals(c.getEmail()));
+    }
 }

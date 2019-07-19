@@ -78,4 +78,13 @@ public class ColleguesController {
     public List<PhotoDTO> getPictures() {
         return collegueService.getAllPictures();
     }
+
+    @RequestMapping(
+            method = RequestMethod.GET,
+            path = "/verifier-doublons"
+    )
+    public boolean verifEmail(@RequestParam String email) {
+
+        return collegueService.verifEmail(email.toLowerCase());
+    }
 }
