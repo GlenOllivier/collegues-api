@@ -14,7 +14,7 @@ import java.util.UUID;
 @Component
 public class StartupDataInit {
     @Autowired
-    CollegueRepository collegueRepo;
+    private CollegueRepository collegueRepo;
 
     private final int NB_COLLEGUE = 100;
 
@@ -31,7 +31,7 @@ public class StartupDataInit {
             c.setBirthDate(LocalDate.of(r.nextInt(50) + 1950,
                     r.nextInt(12) + 1,
                     r.nextInt(28) + 1));
-            c.setPictureUrl("assets/images/keanu.png");
+            c.setPictureUrl(Constantes.IMAGES.get(r.nextInt(Constantes.IMAGES.size())));
 
             collegueRepo.save(c);
         }
