@@ -1,6 +1,7 @@
 package dev.tpjava.colleguesapi.controller;
 
 import dev.tpjava.colleguesapi.controller.dto.CreerCollegueDTO;
+import dev.tpjava.colleguesapi.controller.dto.PhotoDTO;
 import dev.tpjava.colleguesapi.controller.dto.UpdateCollegueDTO;
 import dev.tpjava.colleguesapi.entity.Collegue;
 import dev.tpjava.colleguesapi.service.CollegueService;
@@ -68,5 +69,13 @@ public class ColleguesController {
             collegueService.updateEmail(matricule, c.getEmail());
         }
         return collegueService.rechercherParMatricule(matricule);
+    }
+
+    @RequestMapping(
+            method = RequestMethod.GET,
+            path = "/photos"
+    )
+    public List<PhotoDTO> getPictures() {
+        return collegueService.getAllPictures();
     }
 }

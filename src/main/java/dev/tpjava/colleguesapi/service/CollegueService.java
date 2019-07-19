@@ -1,6 +1,7 @@
 package dev.tpjava.colleguesapi.service;
 
 import dev.tpjava.colleguesapi.controller.dto.CreerCollegueDTO;
+import dev.tpjava.colleguesapi.controller.dto.PhotoDTO;
 import dev.tpjava.colleguesapi.exception.CollegueInvalideException;
 import dev.tpjava.colleguesapi.entity.Collegue;
 import dev.tpjava.colleguesapi.exception.CollegueNonTrouveException;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class CollegueService {
@@ -94,5 +96,12 @@ public class CollegueService {
 
         return collegueRepository.save(c);
 
+    }
+
+    public List<PhotoDTO> getAllPictures() {
+        List<Collegue> collegues = collegueRepository.findAll();
+        return collegues.stream()
+                .map(collegue -> new PhotoDTO(collegue.getMatricule(), collegue.getPictureUrl()))
+                .collect(Collectors.toList());
     }
 }
