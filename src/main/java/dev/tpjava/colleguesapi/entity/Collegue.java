@@ -3,6 +3,7 @@ package dev.tpjava.colleguesapi.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -15,6 +16,7 @@ public class Collegue {
     private String email;
     private String pictureUrl;
     private LocalDate birthDate;
+
 
     public Collegue() {
     }

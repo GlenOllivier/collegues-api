@@ -6,6 +6,7 @@ import dev.tpjava.colleguesapi.controller.dto.UpdateCollegueDTO;
 import dev.tpjava.colleguesapi.entity.Collegue;
 import dev.tpjava.colleguesapi.service.CollegueService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,6 +46,7 @@ public class ColleguesController {
         return c;
     }
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping(
             method = RequestMethod.POST
     )
@@ -54,6 +56,7 @@ public class ColleguesController {
         return collegueService.ajouterCollegue(c);
     }
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping(
             method = RequestMethod.PATCH,
             path = "/{matricule}"
