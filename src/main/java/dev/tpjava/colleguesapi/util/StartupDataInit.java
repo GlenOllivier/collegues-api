@@ -60,10 +60,10 @@ public class StartupDataInit {
         c.setFirstName("Glen");
         c.setEmail("glen.ollivier@laposte.net");
         c.setBirthDate(LocalDate.of(1995, 9,2));
-        c.setPictureUrl("https://www.mobafire.com/images/avatars/rumble-classic.png");
+        c.setPictureUrl("https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Rumble_0.jpg");
 
         u = new User();
-        u.setUsername("pinedecrabe");
+        u.setUsername("stallman");
         u.setPassword(passwordEncoder.encode("password"));
         u.setRoles(Arrays.asList("ROLE_USER"));
         u.setCollegue(c);
