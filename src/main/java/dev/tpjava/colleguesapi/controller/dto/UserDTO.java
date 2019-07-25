@@ -8,6 +8,8 @@ public class UserDTO {
     private String lastName;
     private String firstName;
     private String matricule;
+    private String pictureUrl;
+
     private List<String> roles = new ArrayList<>();
 
     public String getUsername() {
@@ -48,5 +50,13 @@ public class UserDTO {
 
     public void setMatricule(String matricule) {
         this.matricule = matricule;
+    }
+
+    public String getPictureUrl() {
+        return pictureUrl;
+    }
+
+    public void setPictureUrl(String pictureUrl) {
+        this.pictureUrl = pictureUrl;
     }
 }

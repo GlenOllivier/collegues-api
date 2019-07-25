@@ -90,6 +90,7 @@ public class AuthentificationController {
                 userDTO.setFirstName(u.getCollegue().getFirstName());
                 userDTO.setLastName(u.getCollegue().getLastName());
                 userDTO.setMatricule(u.getCollegue().getMatricule());
+                userDTO.setPictureUrl(u.getCollegue().getPictureUrl());
             }
             userDTO.setUsername(username);
             userDTO.setRoles(u.getRoles());

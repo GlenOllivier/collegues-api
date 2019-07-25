@@ -12,6 +12,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableGlobalMethodSecurity(securedEnabled = true)
@@ -28,15 +33,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                .csrf().disable().cors().and()
                 .authorizeRequests()
 
                 .antMatchers("/h2-console/**").permitAll()
 
-                .antMatchers(HttpMethod.OPTIONS).permitAll()
+                //.antMatchers(HttpMethod.OPTIONS).permitAll()
                 .antMatchers(HttpMethod.POST, "/auth").permitAll()
 
                 .anyRequest().authenticated()
@@ -52,5 +58,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .deleteCookies(TOKEN_COOKIE); // Gestion de la déconnexion
 
+    }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration config = new CorsConfiguration();
+        config.setAllowCredentials(true);
+        config.addAllowedOrigin("*");
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("GET");
+        config.addAllowedMethod("POST");
+        config.addAllowedMethod("PUT");
+        config.addAllowedMethod("PATCH");
+        source.registerCorsConfiguration("/logout", config);
+        source.registerCorsConfiguration("/**", config);
+        return new CorsFilter(source);
     }
 }
