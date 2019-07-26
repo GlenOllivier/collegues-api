@@ -11,9 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Random;
-import java.util.UUID;
+import java.util.*;
 
 @Component
 public class StartupDataInit {
@@ -32,6 +30,9 @@ public class StartupDataInit {
     @EventListener(ContextRefreshedEvent.class)
     public void init() {
         Random r = new Random();
+
+        Map<String, Boolean> map = new HashMap<>();
+
         for(int i = 0; i < NB_COLLEGUE; i++) {
             Collegue c = new Collegue();
             c.setMatricule(UUID.randomUUID().toString());
@@ -43,7 +44,20 @@ public class StartupDataInit {
                     r.nextInt(28) + 1));
             c.setPictureUrl(Constantes.IMAGES.get(r.nextInt(Constantes.IMAGES.size())));
 
-            collegueRepo.save(c);
+            if (!map.containsKey(c.getEmail())) {
+                map.put(c.getEmail(), true);
+
+                collegueRepo.save(c);
+
+                User u = new User();
+                u.setUsername(c.getEmail());
+                u.setPassword(passwordEncoder.encode(c.getFirstName()));
+                u.setRoles(Arrays.asList("ROLE_USER"));
+                u.setCollegue(c);
+
+                userRepository.save(u);
+            }
+
         }
 
         User u = new User();
@@ -51,24 +65,6 @@ public class StartupDataInit {
         u.setPassword(passwordEncoder.encode("proot"));
         u.setRoles(Arrays.asList("ROLE_USER", "ROLE_ADMIN"));
 
-        userRepository.save(u);
-
-        Collegue c = new Collegue();
-
-        c.setMatricule(UUID.randomUUID().toString());
-        c.setLastName("Ollivier");
-        c.setFirstName("Glen");
-        c.setEmail("glen.ollivier@laposte.net");
-        c.setBirthDate(LocalDate.of(1995, 9,2));
-        c.setPictureUrl("https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Rumble_0.jpg");
-
-        u = new User();
-        u.setUsername("stallman");
-        u.setPassword(passwordEncoder.encode("password"));
-        u.setRoles(Arrays.asList("ROLE_USER"));
-        u.setCollegue(c);
-
-        collegueRepo.save(c);
         userRepository.save(u);
 
     }
