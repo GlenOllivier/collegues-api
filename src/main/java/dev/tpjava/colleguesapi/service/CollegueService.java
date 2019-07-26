@@ -1,5 +1,6 @@
 package dev.tpjava.colleguesapi.service;
 
+import dev.tpjava.colleguesapi.controller.dto.AccountDto;
 import dev.tpjava.colleguesapi.controller.dto.CreerCollegueDTO;
 import dev.tpjava.colleguesapi.controller.dto.PhotoDTO;
 import dev.tpjava.colleguesapi.exception.CollegueInvalideException;
@@ -109,5 +110,11 @@ public class CollegueService {
         List<Collegue> collegues = collegueRepository.findAll();
         return collegues.stream()
                 .anyMatch(c -> email.equals(c.getEmail()));
+    }
+
+    public List<AccountDto> getAccounts() {
+        return collegueRepository.findAll().stream()
+                .map(collegue -> new AccountDto(collegue.getEmail(), collegue.getFirstName()))
+                .collect(Collectors.toList());
     }
 }

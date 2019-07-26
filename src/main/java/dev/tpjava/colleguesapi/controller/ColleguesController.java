@@ -1,5 +1,6 @@
 package dev.tpjava.colleguesapi.controller;
 
+import dev.tpjava.colleguesapi.controller.dto.AccountDto;
 import dev.tpjava.colleguesapi.controller.dto.CreerCollegueDTO;
 import dev.tpjava.colleguesapi.controller.dto.PhotoDTO;
 import dev.tpjava.colleguesapi.controller.dto.UpdateCollegueDTO;
@@ -89,5 +90,15 @@ public class ColleguesController {
     public boolean verifEmail(@RequestParam String email) {
 
         return collegueService.verifEmail(email.toLowerCase());
+    }
+
+
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(
+            method = RequestMethod.GET,
+            path = "/accounts"
+    )
+    public List<AccountDto> getAccounts() {
+        return collegueService.getAccounts();
     }
 }
