@@ -24,7 +24,7 @@ public class StartupDataInit {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    private final int NB_COLLEGUE = 100;
+    private final int NB_COLLEGUE = 30;
 
 
     @EventListener(ContextRefreshedEvent.class)
@@ -66,6 +66,23 @@ public class StartupDataInit {
         u.setRoles(Arrays.asList("ROLE_USER", "ROLE_ADMIN"));
 
         userRepository.save(u);
+
+        Collegue c = new Collegue();
+        c.setMatricule(UUID.randomUUID().toString());
+        c.setLastName("ODDET");
+        c.setFirstName("Rossi");
+        c.setEmail(c.getLastName()+ '.' + c.getFirstName() + "@gmail.com");
+        c.setBirthDate(LocalDate.of(2001, 9, 11));
+        c.setPictureUrl("https://avatars0.githubusercontent.com/u/1372183?s=460&v=4");
+
+        u = new User();
+        u.setUsername(c.getEmail());
+        u.setPassword(passwordEncoder.encode(c.getFirstName()));
+        u.setRoles(Arrays.asList("ROLE_USER"));
+
+        collegueRepo.save(c);
+        userRepository.save(u);
+
 
     }
 }
